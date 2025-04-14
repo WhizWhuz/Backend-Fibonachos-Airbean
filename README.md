@@ -1,24 +1,28 @@
-# Examen Backend - Fibonachos Gruppupgift AirBean 
+# Examen Backend - Fibonachos Gruppupgift AirBean
 
-- ❌ = Not functioning 
+- ❌ = Not functioning
 - ✅ = Complete
 
-## Installerat 14/04
+## Installed 14/04
 
 ### Dependencies
+
 - Node ✅
 - Express ✅
 - Mongoose ✅
 - Dotenv ✅
+- JSON Web Token ✅
 
 ### Folders
+
 - Routes ❌
 - Middleware ❌
-- Controllers ❌ 
+- Controllers ❌
 - Models ❌ / For Schemas relating to MongoDB \
 
 ### App
+
 - Server.js ❌
 - App.js ❌
-- Gitignore ✅
 - Config.env ❌
+- Gitignore ✅

@@ -1,4 +1,7 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
+
+// App
 
 const app = express();
 
@@ -8,3 +11,5 @@ app.use((req, res, next) => {
   next();
 });
 // Routes
+
+module.exports = app;
