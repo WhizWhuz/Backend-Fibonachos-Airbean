@@ -1,39 +1,48 @@
 const express = require("express");
-const fs = require("fs");
-const path = require("path");
+//använder MongoDB compass ist för lokal json fil
+const mongoose = require("mongoose");
+
+mongoose
+	.connect("mongodb://127.0.0.1:27017/AirbeanBackendTest")
+	.then(() => console.log("Connected to MongoDB"))
+	.catch((err) => console.error("Couldnt connect to MongoDB: ", err));
 
 const app = express();
 app.use(express.json());
 
 const menuPath = path.join(__dirname, "../testMenu.json");
 
-const rawMenu = fs.readFileSync(menuPath);
-const menu = JSON.parse(rawMenu);
+//ist för att använda testMenu.json skapar jag en Mongoose schema
+const menuItemSchema = new mongoose.Schema({
+	name: { type: String, required: true },
+	description: { type: String, required: true },
+	price: { type: Number, required: true },
+});
+
+const MenuItem = mongoose.model("MenuItem", menuItemSchema);
 
 // *** /MENU ***
 //getMenuItem
 app.get("/menu", async (req, res) => {
-	res.json(menu);
+	try {
+		const menuItems = await MenuItem.find();
+		res.json(menuItems);
+	} catch (err) {
+		res.status(500).json({ error: "Could not fetch the menu" });
+	}
 });
 
 //addMenuItem
 app.post("/menu", async (req, res) => {
-	const { id, name, description, price } = req.body;
-
-	if (!id || !name || !description || typeof price !== "number") {
-		return res.status(400).json({ error: "Invalid input" });
-	}
-
-	const newMenuItem = { id, name, description, price };
-
-	menu.push(newMenuItem);
-
 	try {
-		fs.writeFileSync(menuPath, JSON.stringify(menu, null, 2));
-		res.status(201).json({ message: "Menu item added", item: newMenuItem });
+		const newItem = new MenuItem(req.body);
+
+		await newItem.save();
+		res.status(201).json(newItem);
+		console.log(`New menu item added: ${newItem}`);
 	} catch (err) {
 		console.error(err);
-		res.status(500).json({ error: "Failed to save menu item to file" });
+		res.status(400).json({ error: err.message });
 	}
 });
 
