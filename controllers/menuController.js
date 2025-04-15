@@ -1,3 +1,5 @@
+const MenuItem = require("../models/MenuItem");
+
 exports.getMenuItem("/menu", async (req, res) => {
 	try {
 		const menuItems = await MenuItem.find();
