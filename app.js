@@ -7,8 +7,8 @@ const app = express();
 
 // Middleware
 app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString();
-  next();
+	req.requestTime = new Date().toISOString();
+	next();
 });
 // Routes
 
