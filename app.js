@@ -1,9 +1,9 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const authRoutes = require("./routes/authRoutes");
+const menuRoutes = require("./routes/menuRoutes");
 
 // App
-
 const app = express();
 app.use(express.json());
 
@@ -12,8 +12,9 @@ app.use((req, res, next) => {
 	req.requestTime = new Date().toISOString();
 	next();
 });
-// Routes
 
+// Routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/menu", menuRoutes);
 
 module.exports = app;

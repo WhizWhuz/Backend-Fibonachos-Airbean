@@ -1,20 +1,4 @@
-const express = require("express");
-const router = express.Router();
-//använder MongoDB compass ist för lokal json fil
-const mongoose = require("mongoose");
-
-//ist för att använda testMenu.json skapar jag en Mongoose schema
-const menuItemSchema = new mongoose.Schema({
-	name: { type: String, required: true },
-	description: { type: String, required: true },
-	price: { type: Number, required: true },
-});
-
-const MenuItem = mongoose.model("MenuItem", menuItemSchema);
-
-// *** /MENU ***
-//getMenuItem
-router.get("/menu", async (req, res) => {
+exports.getMenuItem("/menu", async (req, res) => {
 	try {
 		const menuItems = await MenuItem.find();
 		res.json(menuItems);
@@ -23,8 +7,7 @@ router.get("/menu", async (req, res) => {
 	}
 });
 
-//addMenuItem
-router.post("/menu", async (req, res) => {
+exports.addMenuItem("/menu", async (req, res) => {
 	try {
 		const newItem = new MenuItem(req.body);
 
@@ -36,8 +19,7 @@ router.post("/menu", async (req, res) => {
 	}
 });
 
-//updateMenuItem
-router.patch("/menu/:id", async (req, res) => {
+exports.updateMenuItem("/menu/:id", async (req, res) => {
 	const { id } = req.params;
 
 	try {
@@ -57,8 +39,7 @@ router.patch("/menu/:id", async (req, res) => {
 	}
 });
 
-//deleteMenuItem
-router.delete("/menu/:id", async (req, res) => {
+exports.deleteMenuItem("/menu/:id", async (req, res) => {
 	const { id } = req.params;
 	try {
 		const deletedItem = await MenuItem.findByIdAndDelete(id);
@@ -78,5 +59,3 @@ router.delete("/menu/:id", async (req, res) => {
 		res.status(500).json({ error: "Could not delete the item" });
 	}
 });
-
-module.exports = router;
