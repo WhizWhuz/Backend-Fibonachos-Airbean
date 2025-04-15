@@ -1,9 +1,11 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const authRoutes = require("./routes/authRoutes");
 
 // App
 
 const app = express();
+app.use(express.json());
 
 // Middleware
 app.use((req, res, next) => {
@@ -11,5 +13,7 @@ app.use((req, res, next) => {
   next();
 });
 // Routes
+
+app.use("/api/v1/auth", authRoutes);
 
 module.exports = app;
