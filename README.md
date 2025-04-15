@@ -12,6 +12,7 @@
 - Mongoose ✅
 - Dotenv ✅
 - JSON Web Token ✅
+- BCryptJS ✅
 
 ### Folders
 
