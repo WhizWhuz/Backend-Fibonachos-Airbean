@@ -2,10 +2,10 @@
   "name": "fibonacho-backend",
   "version": "1.0.0",
   "description": "fibonacho grupp project airbean",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start:dev": "npx nodemon app.js",
-    "starting": "app.js"
+    "start:dev": "npx nodemon server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
