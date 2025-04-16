@@ -1,15 +1,15 @@
 const MenuItem = require("../models/MenuItem");
 
-exports.getMenuItem("/menu", async (req, res) => {
+exports.getAllMenuItems = async (req, res) => {
 	try {
 		const menuItems = await MenuItem.find();
 		res.json(menuItems);
 	} catch (err) {
 		res.status(500).json({ error: "Could not fetch the menu" });
 	}
-});
+};
 
-exports.addMenuItem("/menu", async (req, res) => {
+exports.addMenuItem = async (req, res) => {
 	try {
 		const newItem = new MenuItem(req.body);
 
@@ -19,9 +19,9 @@ exports.addMenuItem("/menu", async (req, res) => {
 		console.error(err);
 		res.status(400).json({ error: err.message });
 	}
-});
+};
 
-exports.updateMenuItem("/menu/:id", async (req, res) => {
+exports.updateMenuItem = async (req, res) => {
 	const { id } = req.params;
 
 	try {
@@ -39,9 +39,9 @@ exports.updateMenuItem("/menu/:id", async (req, res) => {
 	} catch (err) {
 		res.status(500).json({ error: "Could not update the item" });
 	}
-});
+};
 
-exports.deleteMenuItem("/menu/:id", async (req, res) => {
+exports.deleteMenuItem = async (req, res) => {
 	const { id } = req.params;
 	try {
 		const deletedItem = await MenuItem.findByIdAndDelete(id);
@@ -60,4 +60,4 @@ exports.deleteMenuItem("/menu/:id", async (req, res) => {
 	} catch (err) {
 		res.status(500).json({ error: "Could not delete the item" });
 	}
-});
+};
