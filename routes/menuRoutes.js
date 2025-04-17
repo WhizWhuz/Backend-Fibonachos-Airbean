@@ -1,15 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const menuController = require("../controllers/menuController");
+const {
+	validateAddMenuItem,
+	validateUpdateMenuItem,
+} = require("../middleware/validateMenuBody");
 
 router
 	.route("/")
 	.get(menuController.getAllMenuItems)
-	.post(menuController.addMenuItem);
+	.post(validateAddMenuItem, menuController.addMenuItem);
 
 router
 	.route("/:id")
-	.patch(menuController.updateMenuItem)
+	.patch(validateUpdateMenuItem, menuController.updateMenuItem)
 	.delete(menuController.deleteMenuItem);
 
 module.exports = router;
