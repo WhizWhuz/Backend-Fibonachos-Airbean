@@ -7,7 +7,7 @@
 
 ### Dependencies
 
-- Node ✅
+- Nodemon ✅
 - Express ✅
 - Mongoose ✅
 - Dotenv ✅
