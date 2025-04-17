@@ -2,6 +2,7 @@ const express = require("express");
 const authRoutes = require("./routes/authRoutes");
 const menuRoutes = require("./routes/menuRoutes");
 const aboutRoutes = require("./routes/aboutRoutes");
+const cartRoutes = require("./routes/cartRoutes");
 
 // App
 const app = express();
@@ -13,12 +14,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/menu", menuRoutes);
-app.use("/api/v1/about", aboutRoutes);
-
-
 // Error handling middleware (optional but recommended)
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -28,5 +23,10 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Export the app for use in server setup
+// Routes
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/menu", menuRoutes);
+app.use("/api/v1/about", aboutRoutes);
+app.use("/api/v1/cart", cartRoutes);
+
 module.exports = app;
