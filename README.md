@@ -1,13 +1,15 @@
 # Examen Backend - Fibonachos Gruppupgift AirBean
 
 - ❌ = Not functioning
+- ⚠️ = Work in progress / Almost Ready
 - ✅ = Complete
 
-## Installed 14/04
+### Dev Dependencies
+
+- Nodemon ✅
 
 ### Dependencies
 
-- Node ✅
 - Express ✅
 - Mongoose ✅
 - Dotenv ✅
@@ -16,14 +18,14 @@
 
 ### Folders
 
-- Routes ❌
-- Middleware ❌
-- Controllers ❌
-- Models ❌ / For Schemas relating to MongoDB \
+- Routes ⚠️
+- Middleware ⚠️
+- Controllers ⚠️
+- Models ⚠️
 
 ### App
 
-- Server.js ❌
-- App.js ❌
-- Config.env ❌
+- Server.js ✅
+- App.js ✅
+- Config.env 🤫
 - Gitignore ✅
