@@ -50,27 +50,50 @@ exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    //  Find the user and include the password
+    const user = await User.findOne({ email }).select("+password");
 
-    if (!user)
-      return res
-        .status(401)
-        .json({ message: "🙅 Email or password is INCORRECT! ❌" });
+    if (!user) {
+      return res.status(401).json({
+        message: "🙅 Email or password is INCORRECT! ❌",
+      });
+    }
 
+    //  Check password
     const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({
+        message: "🙅 Email or password is INCORRECT! ❌",
+      });
+    }
 
-    if (!isMatch)
-      return res
-        .status(401)
-        .json({ message: "🙅 Email or password is INCORRECT! ❌" });
-
+    //  Create token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ token });
+    //  Create custom message based on role
+    let message = `🍵 Welcome back, ${user.name}!`;
+
+    if (user.role === "admin") {
+      message = `👑 Welcome back, ${user.name}, noble admin!`;
+    } else if (user.role === "barista") {
+      message = `☕ Welcome back dear barista, ${user.name}.`;
+    } else {
+      message = `🍵 Welcome back dear, ${user.name}. Ready for some coffee?`;
+    }
+
+    res.status(200).json({
+      status: "success",
+      message,
+      role: user.role,
+      token,
+    });
   } catch (err) {
-    res.status(500).json({ message: "Server exploded! 🌋" });
+    console.error("Login error:", err);
+    res.status(500).json({
+      message: "Server exploded! 🌋",
+    });
   }
 };
 // Get all Users Controller
