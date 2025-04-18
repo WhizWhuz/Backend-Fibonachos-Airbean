@@ -24,6 +24,16 @@ const orderSchema = new mongoose.Schema({
 		type: Number,
 		required: true,
 	},
+	//..........................TODOstatus  skapat status och estimed tid som ska läggas i orderController senare.
+	status: {
+		type: String,
+		enum: ['pending', 'confirmed', 'ready', 'completed'],
+		default: 'pending'
+	},
+	estimatedTime: {
+		type: Number, // in minutes
+		default: 15
+	},
 	createdAt: {
 		type: Date,
 		default: Date.now,
