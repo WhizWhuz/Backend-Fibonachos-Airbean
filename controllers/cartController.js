@@ -94,3 +94,21 @@ exports.removeFromCart = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// DELETE - Clear and delete the entire cart
+exports.deleteCart = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const deletedCart = await Cart.findOneAndDelete({ user: userId });
+
+    if (!deletedCart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    res.status(200).json({ message: "🧺 Cart is cleared." });
+  } catch (err) {
+    console.error("Failed to delete cart:", err);
+    res.status(500).json({ message: "💣 Server error" });
+  }
+};
