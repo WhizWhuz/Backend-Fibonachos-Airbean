@@ -13,7 +13,9 @@ const aboutSchema = new mongoose.Schema(
   },
   {
     timestamps: true, // adds createdAt and updatedAt automatically
-    versionKey: true,
+  },
+  {
+    versionKey: false,
   }
 );
 
