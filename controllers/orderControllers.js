@@ -35,3 +35,15 @@ exports.placeOrder = async (req, res) => {
 		res.status(500).json({ message: "Server error" });
 	}
 };
+
+exports.getAllOrders = async (req, res) => {
+	try {
+		const orders = await Order.find()
+			.populate("user", "name email")
+			.populate("items.menuItem", "name price");
+		res.status(200).json({ orders });
+	} catch (err) {
+		console.error("Error getting orders: ", err);
+		res.status(500).json({ message: "Server error" });
+	}
+};
