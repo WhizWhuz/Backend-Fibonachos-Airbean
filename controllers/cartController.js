@@ -1,6 +1,7 @@
 const Cart = require("../models/Cart");
 const MenuItem = require("../models/MenuItem");
 
+// POST - Adding an item to cart
 exports.addToCart = async (req, res) => {
   const userId = req.user.id;
   const { items } = req.body;
@@ -39,7 +40,7 @@ exports.addToCart = async (req, res) => {
   }
 };
 
-// GET CART
+// GET - Showing the entire cart
 exports.getCart = async (req, res) => {
   const userId = req.user.id;
 
@@ -71,7 +72,7 @@ exports.getCart = async (req, res) => {
   }
 };
 
-// REMOVE FROM CART
+// DELETE - Delete one item from the cart
 exports.removeFromCart = async (req, res) => {
   const userId = req.user.id;
   const { menuItemId } = req.body;

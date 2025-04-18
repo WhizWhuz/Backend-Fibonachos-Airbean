@@ -2,7 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Register Controller
+// POST - Register
 exports.register = async (req, res) => {
   const { email, password, name, role } = req.body;
 
@@ -20,6 +20,9 @@ exports.register = async (req, res) => {
       name,
       role,
     });
+
+    const userObj = newUser.toObject();
+    delete userObj.__v;
 
     const token = jwt.sign(
       { id: newUser._id, role: newUser.role },
@@ -45,7 +48,7 @@ exports.register = async (req, res) => {
       .json({ message: "⛔ Registration has failed!", error: err.message });
   }
 };
-// Login Controller
+// POST - Login
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -96,7 +99,7 @@ exports.login = async (req, res) => {
     });
   }
 };
-// Get all Users Controller
+// GET - Show all users
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
