@@ -1,0 +1,196 @@
+{
+	"paths": {
+		"/auth/register": {
+			"post": {
+				"summary": "Register an account",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"email": { "type": "string", "format": "email" },
+									"password": { "type": "string", "minLength": 6 },
+									"name": { "type": "string" },
+									"role": {
+										"type": "string",
+										"enum": ["user", "admin", "barista"]
+									}
+								},
+								"required": ["email", "password"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Registration complete. JWT token returned"
+					},
+					"400": {
+						"description": "User already exsists or invalid input: missing or incorrect fields. Email must be valid, password must be at least 6 characters."
+					},
+					"500": {
+						"description": "Server error while registering"
+					}
+				}
+			}
+		},
+		"/auth/login": {
+			"post": {
+				"summary": "Log in and return a token",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"email": { "type": "string", "format": "email" },
+									"password": { "type": "string" }
+								},
+								"required": ["email", "password"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Log in successful. Token and role returned."
+					},
+					"401": {
+						"description": "Invalid email or password."
+					},
+					"500": {
+						"description": "Server error while logging in."
+					}
+				}
+			}
+		},
+		"/menu": {
+			"get": {
+				"summary": "Get all menu items",
+				"responses": {
+					"200": {
+						"description": "A list of coffee items"
+					},
+					"500": {
+						"description": "Server error while fetching menu"
+					}
+				}
+			},
+			"post": {
+				"summary": "Add a menu item",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": { "type": "string" },
+									"description": { "type": "string" },
+									"price": { "type": "number" }
+								},
+								"required": ["name", "description", "price"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "An item was added to the menu"
+					},
+					"400": {
+						"description": "Invalid input: name, description or price is missing or incorrect type"
+					}
+				}
+			}
+		},
+		"/menu/{id}": {
+			"patch": {
+				"summary": "Update a menu item",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "A menu item was updated"
+					},
+					"400": {
+						"description": "Invalid input: name, description or price is of incorrect type"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				}
+			},
+			"delete": {
+				"summary": "Delete a menu item",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "A menu item was deleted"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				}
+			}
+		},
+		"/about": {
+			"get": {
+				"summary": "Get about page content",
+				"responses": {
+					"200": {
+						"description": "About content fetched successfully"
+					},
+					"404": {
+						"description": "About content not found"
+					},
+					"500": {
+						"description": "Server error while fetching about content"
+					}
+				}
+			},
+			"put": {
+				"summary": "Update or create about page content",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"title": { "type": "string" },
+									"description": { "type": "string" }
+								},
+								"required": ["title", "description"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "About content updated or created"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				}
+			}
+		}
+	}
+}
