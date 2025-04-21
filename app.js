@@ -5,9 +5,7 @@ const aboutRoutes = require("./routes/aboutRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const globalMiddleware = require("./middleware/globalMiddleware");
 const orderRoutes = require("./routes/orderRoutes");
-
-
-
+const profileRoutes = require("./routes/profileRoutes");
 
 // App
 const app = express();
@@ -39,7 +37,7 @@ app.use("/api/v1/menu", menuRoutes);
 app.use("/api/v1/about", aboutRoutes);
 app.use("/api/v1/cart", cartRoutes);
 app.use("/api/v1/order", orderRoutes);
-
+app.use("/api/v1/profile", profileRoutes);
 
 //::::::::::::::::::::::::: Error handling
 app.use(globalMiddleware.notFound);
