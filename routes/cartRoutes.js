@@ -8,14 +8,14 @@ const { validateMenuItemId } = require("../middleware/validateMenuItemId");
 router.use(authMiddleware);
 
 router
-	.route("/")
-	.post(cartValidator, cartController.addToCart)
-	.get(cartController.getCart);
-
-router
-	.route("/:menuItemId")
-	.delete(validateMenuItemId, cartController.removeFromCart);
+  .route("/")
+  .post(cartValidator, cartController.addToCart)
+  .get(cartController.getCart);
 
 router.delete("/clear", cartController.deleteCart);
+
+router
+  .route("/:menuItemId")
+  .delete(validateMenuItemId, cartController.removeFromCart);
 
 module.exports = router;
