@@ -6,19 +6,26 @@ const {
 	validateUpdateMenuItem,
 } = require("../middleware/validateMenuBody");
 const adminRoleValidator = require("../middleware/adminRoleValidator");
+const authMiddleware = require("../middleware/authMiddleware");
 
 router
 	.route("/")
 	.get(menuController.getAllMenuItems)
-	.post(adminRoleValidator, validateAddMenuItem, menuController.addMenuItem);
+	.post(
+		authMiddleware,
+		adminRoleValidator,
+		validateAddMenuItem,
+		menuController.addMenuItem
+	);
 
 router
 	.route("/:id")
 	.patch(
+		authMiddleware,
 		adminRoleValidator,
 		validateUpdateMenuItem,
 		menuController.updateMenuItem
 	)
-	.delete(adminRoleValidator, menuController.deleteMenuItem);
+	.delete(authMiddleware, adminRoleValidator, menuController.deleteMenuItem);
 
 module.exports = router;
