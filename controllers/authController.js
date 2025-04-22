@@ -58,7 +58,7 @@ exports.login = async (req, res) => {
 
     if (!user) {
       return res.status(401).json({
-        message: "🙅 Email or password is INCORRECT! ❌",
+        message: "🙅 Email or password is INCORRECT! 🙅",
       });
     }
 
@@ -66,7 +66,7 @@ exports.login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({
-        message: "🙅 Email or password is INCORRECT! ❌",
+        message: "🙅 Email or password is INCORRECT! 🙅",
       });
     }
 
@@ -79,23 +79,24 @@ exports.login = async (req, res) => {
     let message = `🍵 Welcome back, ${user.name}!`;
 
     if (user.role === "admin") {
-      message = `👑 Welcome back, ${user.name}, noble admin!`;
+      message = `👑 Welcome back, ${user.name}, noble admin! 🎩`;
     } else if (user.role === "barista") {
       message = `☕ Welcome back dear barista, ${user.name}.`;
     } else {
-      message = `🍵 Welcome back dear, ${user.name}. Ready for some coffee?`;
+      message = `🍵 Welcome back dear, ${user.name}. Ready for some coffee? ☕`;
     }
 
     res.status(200).json({
       status: "success",
       message,
       role: user.role,
-      token,
+      authorization: `Bearer ${token}`,
     });
   } catch (err) {
     console.error("Login error:", err);
     res.status(500).json({
       message: "Server exploded! 🌋",
+      err,
     });
   }
 };
@@ -105,7 +106,7 @@ exports.getAllUsers = async (req, res) => {
     const users = await User.find();
     res.status(200).json({
       status: "success",
-      results: users.length,
+      results: users.length,  
       data: {
         users,
       },
