@@ -18,10 +18,10 @@
 
 ### Folders
 
-- Routes ⚠️
-- Middleware ⚠️
-- Controllers ⚠️
-- Models ⚠️
+- Routes ✅
+- Middleware ✅
+- Controllers ✅
+- Models ✅
 
 ### App
 

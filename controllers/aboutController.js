@@ -1,4 +1,4 @@
-const About = require("../models/about");
+const About = require("../models/About");
 
 // GET /api/v1/about
 exports.getAbout = async (req, res) => {
