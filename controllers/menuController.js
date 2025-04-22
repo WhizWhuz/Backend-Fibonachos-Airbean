@@ -29,12 +29,6 @@ exports.updateMenuItem = async (req, res) => {
 			new: true,
 		});
 
-		if (!updatedItem) {
-			return res
-				.status(404)
-				.json({ message: `Cannot find item with ID ${menuItemId}` });
-		}
-
 		res.status(200).json(updatedItem);
 	} catch (err) {
 		res.status(500).json({ error: "Could not update the item" });
@@ -45,13 +39,6 @@ exports.deleteMenuItem = async (req, res) => {
 	const { menuItemId } = req.params;
 	try {
 		const deletedItem = await MenuItem.findByIdAndDelete(menuItemId);
-
-		if (!deletedItem) {
-			console.log(`Cannot find the item with ID ${menuItemId}`);
-			return res
-				.status(404)
-				.json({ message: `Cannot find item with ID ${menuItemId}` });
-		}
 
 		res.status(200).json({
 			message: "Item deleted successfully",

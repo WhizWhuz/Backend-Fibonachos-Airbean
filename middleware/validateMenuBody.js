@@ -29,6 +29,12 @@ exports.validateAddMenuItem = (req, res, next) => {
 exports.validateUpdateMenuItem = (req, res, next) => {
 	const { name, description, price } = req.body;
 
+	if (name === undefined && description === undefined && price === undefined) {
+		return res
+			.status(400)
+			.json({ message: "At least one field must be provided to update" });
+	}
+
 	if (price !== undefined) {
 		if (typeof price !== "number" || price <= 0) {
 			return res
