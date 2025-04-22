@@ -22,17 +22,17 @@ exports.addMenuItem = async (req, res) => {
 };
 
 exports.updateMenuItem = async (req, res) => {
-	const { id } = req.params;
+	const { menuItemId } = req.params;
 
 	try {
-		const updatedItem = await MenuItem.findByIdAndUpdate(id, req.body, {
+		const updatedItem = await MenuItem.findByIdAndUpdate(menuItemId, req.body, {
 			new: true,
 		});
 
 		if (!updatedItem) {
 			return res
 				.status(404)
-				.json({ message: `Cannot find item with ID ${id}` });
+				.json({ message: `Cannot find item with ID ${menuItemId}` });
 		}
 
 		res.status(200).json(updatedItem);
@@ -42,15 +42,15 @@ exports.updateMenuItem = async (req, res) => {
 };
 
 exports.deleteMenuItem = async (req, res) => {
-	const { id } = req.params;
+	const { menuItemId } = req.params;
 	try {
-		const deletedItem = await MenuItem.findByIdAndDelete(id);
+		const deletedItem = await MenuItem.findByIdAndDelete(menuItemId);
 
 		if (!deletedItem) {
-			console.log(`Cannot find the item with ID ${id}`);
+			console.log(`Cannot find the item with ID ${menuItemId}`);
 			return res
 				.status(404)
-				.json({ message: `Cannot find item with ID ${id}` });
+				.json({ message: `Cannot find item with ID ${menuItemId}` });
 		}
 
 		res.status(200).json({

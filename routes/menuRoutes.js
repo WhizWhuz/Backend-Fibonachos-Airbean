@@ -5,6 +5,7 @@ const {
 	validateAddMenuItem,
 	validateUpdateMenuItem,
 } = require("../middleware/validateMenuBody");
+const { validateMenuItemId } = require("../middleware/validateMenuItemId");
 const adminRoleValidator = require("../middleware/adminRoleValidator");
 const authMiddleware = require("../middleware/authMiddleware");
 
@@ -19,13 +20,19 @@ router
 	);
 
 router
-	.route("/:id")
+	.route("/:menuItemId")
 	.patch(
 		authMiddleware,
 		adminRoleValidator,
+		validateMenuItemId,
 		validateUpdateMenuItem,
 		menuController.updateMenuItem
 	)
-	.delete(authMiddleware, adminRoleValidator, menuController.deleteMenuItem);
+	.delete(
+		authMiddleware,
+		adminRoleValidator,
+		validateMenuItemId,
+		menuController.deleteMenuItem
+	);
 
 module.exports = router;
